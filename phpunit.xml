@@ -2,19 +2,19 @@
 <phpunit bootstrap="./vendor/autoload.php" colors="true">
 
     <testsuites>
-        <testsuite name="Payment Calendar project's test suite">
-            <directory suffix="Should.php">./tests</directory>
+        <testsuite name="Sales Payroll project's test suite">
+            <directory suffix="Should.php">./tests/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix="Should.php">./src/*</directory>
+            <directory suffix="Should.php">./src/</directory>
         </whitelist>
     </filter>
 
     <logging>
-      <log type="coverage-html" target="./build/coverage" title="Payment Calendar" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
+      <log type="coverage-html" target="./build/coverage" title="Sales Payroll" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
       <log type="coverage-clover" target="./build/logs/clover.xml"/>
       <log type="junit" target="./build/logs/junit.xml" logIncompleteSkipped="false"/>
     </logging>

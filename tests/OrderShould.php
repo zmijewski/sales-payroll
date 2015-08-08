@@ -1,8 +1,9 @@
 <?php
 
-namespace PaymentCalendarTests;
+namespace SalesPayrollTests;
 
-use PaymentCalendar\Order;
+use SalesPayroll\Order;
+use SalesPayroll\Utility\InputReader;
 
 class OrderShould extends \PHPUnit_Framework_TestCase
 {
@@ -11,6 +12,6 @@ class OrderShould extends \PHPUnit_Framework_TestCase
      */
     public function beCreated()
     {
-        $this->assertTrue(is_object(new Order));
+        $this->assertTrue(is_object(new Order(new InputReader)));
     }
 }

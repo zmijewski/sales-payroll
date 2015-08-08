@@ -1,7 +1,9 @@
 <?php
 
-namespace PaymentCalendar;
+namespace SalesPayroll;
+
+use SalesPayroll\Utility\InputReader;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$app = new Order();
+$app = new Order((new InputReader(getopt('f:'))));

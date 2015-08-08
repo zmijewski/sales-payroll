@@ -3,7 +3,7 @@
     "description": "Simple application for payment calendar written in PHP 7",
     "type": "json",
     "autoload": {
-        "psr-4": {"PaymentCalendar\\": "src/", "PaymentCalendarTests\\": "tests/"}
+        "psr-4": {"SalesPayroll\\": "src/", "SalesPayrollTests\\": "tests/"}
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.*"
