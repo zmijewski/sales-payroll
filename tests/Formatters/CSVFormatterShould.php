@@ -5,8 +5,9 @@ namespace SalesPayrollTests;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use SalesPayroll\Formatters\CSVFormatter;
+use SalesPayroll\PaymentInfoStub;
 
-class FormatterShould extends \PHPUnit_Framework_TestCase
+class CSVFormatterShould extends \PHPUnit_Framework_TestCase
 {
     /** @var vfsStreamDirectory */
     private $vfsStream;
@@ -21,32 +22,26 @@ class FormatterShould extends \PHPUnit_Framework_TestCase
      */
     public function implementFormatterInterface()
     {
-        $this->assertInstanceOf('SalesPayroll\Formatters\Formatter', new CSVFormatter());
+        $this->assertInstanceOf('SalesPayroll\Formatters\FormatterInterface', new CSVFormatter());
     }
 
     /**
      * @test
      */
-    public function createNewEmptyFile()
+    public function createCSVFileWithThreeColumnsAndThreeRows()
     {
-        (new CSVFormatter())->create(vfsStream::url('root') . '/csv-file', []);
+        $firstRow = new PaymentInfoStub('', '');
+        $firstRow->setColumns('August', '2015-08-31', '2015-08-19');
+        $secondRow = new PaymentInfoStub('', '');
+        $secondRow->setColumns('September', '2015-09-30', '2015-09-15');
 
-        $this->assertTrue($this->vfsStream->hasChild('csv-file.csv'));
-    }
+        (new CSVFormatter())->create(vfsStream::url('root') . '/csv-file', [
+            $firstRow,
+            $secondRow
+        ]);
 
-    /**
-     * @test
-     */
-    public function createCSVFileWithTwoColumnsAndRows()
-    {
-        $data = [
-            ['1.0', '1.1'],
-            ['2.0', '2.1'],
-        ];
-
-        (new CSVFormatter())->create(vfsStream::url('root') . '/csv-file', $data);
-
-        $this->assertEquals("1.0,1.1\n2.0,2.1\n", $this->vfsStream->getChild('csv-file.csv')->getContent());
+        $expectedString = "\"Month name\",\"Salary Payment Date\",\"Bonus Payment Date\"\nAugust,2015-08-31,2015-08-19\nSeptember,2015-09-30,2015-09-15\n";
+        $this->assertEquals($expectedString, $this->vfsStream->getChild('csv-file.csv')->getContent());
     }
 
     /**

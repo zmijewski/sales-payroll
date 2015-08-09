@@ -2,7 +2,7 @@
 
 namespace SalesPayroll\Utility;
 
-class InputReader implements Reader
+class InputReader implements ReaderInterface
 {
   private $input;
   private $fileName;

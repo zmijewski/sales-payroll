@@ -2,7 +2,7 @@
 
 namespace SalesPayroll\Formatters;
 
-interface Formatter
+interface FormatterInterface
 {
     public function create($fileName, $data);
 }

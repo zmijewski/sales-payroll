@@ -9,6 +9,14 @@ class InputReaderShould extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function implementReaderInterface()
+    {
+        $this->assertInstanceOf('SalesPayroll\Utility\ReaderInterface', new InputReader());
+    }
+
+    /**
+     * @test
+     */
     public function readFileName()
     {
       $inputReader = new InputReader(['f' => 'payroll2015']);

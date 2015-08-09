@@ -4,7 +4,7 @@ namespace SalesPayroll\Formatters;
 
 use Exception;
 
-class CSVFormatter implements Formatter
+class CSVFormatter implements FormatterInterface
 {
     public function create($fileName, $data)
     {
@@ -12,8 +12,9 @@ class CSVFormatter implements Formatter
         try
         {
             $fp = fopen($fileName, "w");
-            foreach ($data as $fields) {
-                fputcsv($fp, $fields);
+            fputcsv($fp, ['Month name', 'Salary Payment Date', 'Bonus Payment Date']);
+            foreach ($data as $paymentDay) {
+                fputcsv($fp, $paymentDay->getAsArray());
             }
             fclose($fp);
         } catch ( Exception $e ) {

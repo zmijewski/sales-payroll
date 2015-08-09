@@ -2,26 +2,26 @@
 
 namespace SalesPayroll;
 
-use SalesPayroll\Formatters\Formatter;
-use SalesPayroll\Utility\Reader;
+use SalesPayroll\Formatters\FormatterInterface;
+use SalesPayroll\Utility\ReaderInterface;
 
 class Command
 {
-    /** @var Formatter */
+    /** @var FormatterInterface */
     private $formatter;
     /** @var PaymentDateCalculator */
     private $calculator;
-    /** @var Reader */
+    /** @var ReaderInterface */
     private $reader;
     /** @var bool */
     private $isCompletedSuccessfuly;
 
     /**
-     * @param Formatter             $formatter
+     * @param FormatterInterface    $formatter
      * @param PaymentDateCalculator $calculator
-     * @param Reader                $reader
+     * @param ReaderInterface       $reader
      */
-    public function __construct(Formatter $formatter, PaymentDateCalculator $calculator, Reader $reader)
+    public function __construct(FormatterInterface $formatter, PaymentDateCalculator $calculator, ReaderInterface $reader)
     {
         $this->reader = $reader;
         $this->formatter = $formatter;
@@ -41,10 +41,10 @@ class Command
     public function printMessage()
     {
         if ($this->isCompletedSuccessfuly) {
-            printf("File %s created successfuly.", $this->reader->getFileName());
+            printf("File %s created successfuly.\n", $this->reader->getFileName());
             return 0;
         } else {
-            printf("File could not be created.");
+            printf("File could not be created.\n");
             return 1;
         }
     }

@@ -9,9 +9,9 @@ class PaymentDateCalculatorShould extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function returnEmptyPaymentDates()
+    public function returnFivePaymentDatesWhenAugustPassed()
     {
-        $calculator = new PaymentDateCalculator(new \DateTime);
-        $this->assertEmpty($calculator->getPaymentDates());
+        $calculator = new PaymentDateCalculator(new \DateTime('2015-08-15'));
+        $this->assertCount(5, $calculator->getPaymentDates());
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SalesPayroll\Utility;
 
-interface Reader
+interface ReaderInterface
 {
     const DEFAULT_FILE_NAME = 'payroll';
 

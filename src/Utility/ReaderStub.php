@@ -2,7 +2,7 @@
 
 namespace SalesPayroll\Utility;
 
-class ReaderStub implements Reader
+class ReaderStub implements ReaderInterface
 {
     private $input;
 
