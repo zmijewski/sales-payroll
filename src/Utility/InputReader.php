@@ -2,10 +2,8 @@
 
 namespace SalesPayroll\Utility;
 
-class InputReader
+class InputReader implements Reader
 {
-  const DEFAULT_FILE_NAME = 'sales_payroll';
-
   private $input;
   private $fileName;
 
@@ -24,6 +22,8 @@ class InputReader
   {
     if (!(isset($this->input['f']) && $this->input['f'])) {
       $this->fileName = self::DEFAULT_FILE_NAME;
+    } elseif (!ctype_alnum($this->input['f'])) {
+      throw new \Exception('Filename can contain only letters or digits');
     } else {
       $this->fileName = $this->input['f'];
     }

@@ -11,9 +11,9 @@ class InputReaderShould extends \PHPUnit_Framework_TestCase
      */
     public function readFileName()
     {
-      $inputReader = new InputReader(['f' => 'payroll_2015']);
+      $inputReader = new InputReader(['f' => 'payroll2015']);
 
-      $this->assertEquals('payroll_2015', $inputReader->getFileName());
+      $this->assertEquals('payroll2015', $inputReader->getFileName());
     }
 
     /**
@@ -23,7 +23,7 @@ class InputReaderShould extends \PHPUnit_Framework_TestCase
     {
         $inputReader = new InputReader();
 
-        $this->assertEquals('sales_payroll', $inputReader->getFileName());
+        $this->assertEquals('payroll', $inputReader->getFileName());
     }
 
     /**
@@ -33,6 +33,16 @@ class InputReaderShould extends \PHPUnit_Framework_TestCase
     {
         $inputReader = new InputReader(['f' => false]);
 
-        $this->assertEquals('sales_payroll', $inputReader->getFileName());
+        $this->assertEquals('payroll', $inputReader->getFileName());
+    }
+
+    /**
+     * @test
+     */
+    public function notLetPassCharsDifferentThanAlphaNumeric()
+    {
+        $this->setExpectedException('\Exception', 'Filename can contain only letters or digits');
+
+        new InputReader(['f' => './directory/example']);
     }
 }

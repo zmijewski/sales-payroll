@@ -7,7 +7,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use SalesPayroll\Formatters\CSVFormatter;
 use SalesPayroll\Command;
 use SalesPayroll\PaymentDateCalculator;
-use SalesPayroll\Utility\InputReader;
+use SalesPayroll\Utility\ReaderStub;
 
 class OrderShould extends \PHPUnit_Framework_TestCase
 {
@@ -22,12 +22,40 @@ class OrderShould extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function executeCommand()
+    public function printSuccessMessageWhenCommandIsSuccessfullyCompleted()
     {
-        (new Command(
+        $isCompletedSuccessfully = (new Command(
             new CSVFormatter,
             new PaymentDateCalculator(new \DateTime),
-            new InputReader(['f' => vfsStream::url('root') . '/example'])))
-            ->execute();
+            new ReaderStub(['f' => vfsStream::url('root') . '/example'])))
+            ->execute()
+            ->printMessage();
+
+        $this->assertSuccessStatusCodeForBash($isCompletedSuccessfully);
+    }
+
+    /**
+     * @test
+     */
+    public function printFailureMessageWhenCommandFails()
+    {
+        $isCompletedSuccessfully = (new Command(
+            new CSVFormatter,
+            new PaymentDateCalculator(new \DateTime),
+            new ReaderStub(['f' => vfsStream::url('root') . '/dir/example'])))
+            ->execute()
+            ->printMessage();
+
+        $this->assertFailureStatusCodeForBash($isCompletedSuccessfully);
+    }
+
+    private function assertSuccessStatusCodeForBash($isCompletedSuccessfully)
+    {
+        $this->assertEquals(0, $isCompletedSuccessfully);
+    }
+
+    private function assertFailureStatusCodeForBash($isCompletedSuccessfully)
+    {
+        $this->assertEquals(1, $isCompletedSuccessfully);
     }
 }

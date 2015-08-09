@@ -3,7 +3,7 @@
 namespace SalesPayroll;
 
 use SalesPayroll\Formatters\Formatter;
-use SalesPayroll\Utility\InputReader;
+use SalesPayroll\Utility\Reader;
 
 class Command
 {
@@ -11,7 +11,7 @@ class Command
     private $formatter;
     /** @var PaymentDateCalculator */
     private $calculator;
-    /** @var InputReader */
+    /** @var Reader */
     private $reader;
     /** @var bool */
     private $isCompletedSuccessfuly;
@@ -19,9 +19,9 @@ class Command
     /**
      * @param Formatter             $formatter
      * @param PaymentDateCalculator $calculator
-     * @param InputReader           $reader
+     * @param Reader                $reader
      */
-    public function __construct(Formatter $formatter, PaymentDateCalculator $calculator, InputReader $reader)
+    public function __construct(Formatter $formatter, PaymentDateCalculator $calculator, Reader $reader)
     {
         $this->reader = $reader;
         $this->formatter = $formatter;
@@ -42,8 +42,10 @@ class Command
     {
         if ($this->isCompletedSuccessfuly) {
             printf("File %s created successfuly.", $this->reader->getFileName());
+            return 0;
         } else {
             printf("File could not be created.");
+            return 1;
         }
     }
 }
