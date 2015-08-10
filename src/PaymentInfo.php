@@ -4,10 +4,15 @@ namespace SalesPayroll;
 
 class PaymentInfo implements PaymentInfoInterface
 {
+    /** @var  string */
     private $salaryDate;
+    /** @var  string */
     private $bonusDate;
+    /** @var  integer */
     private $year;
+    /** @var  integer */
     private $month;
+    /** @var  string */
     private $monthName;
 
     public function __construct($year, $month)

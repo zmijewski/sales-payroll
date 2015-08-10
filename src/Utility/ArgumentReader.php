@@ -2,9 +2,11 @@
 
 namespace SalesPayroll\Utility;
 
-class InputReader implements ReaderInterface
+class ArgumentReader implements ReaderInterface
 {
+  /** @var array  */
   private $input;
+  /** @var string */
   private $fileName;
 
   public function __construct(array $input = [])

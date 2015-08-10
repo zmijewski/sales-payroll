@@ -6,6 +6,12 @@ use Exception;
 
 class CSVFormatter implements FormatterInterface
 {
+    /**
+     * @param $fileName String
+     * @param $data     Array with PaymentDay value objects
+     *
+     * @return bool
+     */
     public function create($fileName, $data)
     {
         $fileName .= '.csv';

@@ -9,7 +9,7 @@ use SalesPayroll\Command;
 use SalesPayroll\PaymentDateCalculator;
 use SalesPayroll\Utility\ReaderStub;
 
-class OrderShould extends \PHPUnit_Framework_TestCase
+class CommandShould extends \PHPUnit_Framework_TestCase
 {
     /** @var vfsStreamDirectory */
     private $vfsStream;

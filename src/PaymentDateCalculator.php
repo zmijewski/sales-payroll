@@ -4,6 +4,7 @@ namespace SalesPayroll;
 
 class PaymentDateCalculator
 {
+    /** @var \DateTime */
     private $date;
 
     public function __construct(\DateTime $date)

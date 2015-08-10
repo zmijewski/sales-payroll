@@ -2,16 +2,16 @@
 
 namespace SalesPayrollTests\Utility;
 
-use SalesPayroll\Utility\InputReader;
+use SalesPayroll\Utility\ArgumentReader;
 
-class InputReaderShould extends \PHPUnit_Framework_TestCase
+class ArgumentReaderShould extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
     public function implementReaderInterface()
     {
-        $this->assertInstanceOf('SalesPayroll\Utility\ReaderInterface', new InputReader());
+        $this->assertInstanceOf('SalesPayroll\Utility\ReaderInterface', new ArgumentReader());
     }
 
     /**
@@ -19,7 +19,7 @@ class InputReaderShould extends \PHPUnit_Framework_TestCase
      */
     public function readFileName()
     {
-      $inputReader = new InputReader(['f' => 'payroll2015']);
+      $inputReader = new ArgumentReader(['f' => 'payroll2015']);
 
       $this->assertEquals('payroll2015', $inputReader->getFileName());
     }
@@ -29,7 +29,7 @@ class InputReaderShould extends \PHPUnit_Framework_TestCase
      */
     public function setDefaultFileNameWhenFileNameNotPassed()
     {
-        $inputReader = new InputReader();
+        $inputReader = new ArgumentReader();
 
         $this->assertEquals('payroll', $inputReader->getFileName());
     }
@@ -39,7 +39,7 @@ class InputReaderShould extends \PHPUnit_Framework_TestCase
      */
     public function setDefaultFileNameWhenFlagPassedButWithFalseValue()
     {
-        $inputReader = new InputReader(['f' => false]);
+        $inputReader = new ArgumentReader(['f' => false]);
 
         $this->assertEquals('payroll', $inputReader->getFileName());
     }
@@ -51,6 +51,6 @@ class InputReaderShould extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\Exception', 'Filename can contain only letters or digits');
 
-        new InputReader(['f' => './directory/example']);
+        new ArgumentReader(['f' => './directory/example']);
     }
 }
