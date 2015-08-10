@@ -6,10 +6,16 @@
 ### Steps
 1. Install docker `https://docs.docker.com/installation`
 2. Pull image with `docker pull zmijewski/php-xdebug:latest`
-3. Run `docker run -it --name=app zmijewski/php-xdebug:latest`
-4. Run in container `php composer.phar install`
-5. To run application run in container `php src/app.php -f your_filename`
-6. To run tests with coverage run in container `./vendor/bin/phpunit`
+3. Clone repository `git clone git@github.com:zmijewski/sales-payroll.git`
+4. Enter `cd sales-payroll`
+5. Run `docker run -it -v $(pwd):/project --name=app zmijewski/php-xdebug:latest`
+6. Run in container `php composer.phar install`
+7. To run application, run in container `php src/app.php -f your_filename`
+8. To run tests with coverage, run in container `./vendor/bin/phpunit`
+9. To check coverage see build folder
+
+### Caution
+`$(pwd):/project` - means that your current directory is mounted in container at `/project`, so that you can work and use git on host machine
 
 ### Extra
  - Start/Stop container with `docker container-name stop/start`
