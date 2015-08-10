@@ -31,10 +31,15 @@ class PaymentInfo implements PaymentInfoInterface
 
     private function setPaymentDay()
     {
-        $month = $this->month + 1;
-        $monthName = date('F', strtotime("$this->year-$month-15"));
+        $lastWorkingDay = (new \DateTime())->setDate($this->year, $this->month, date('t', mktime(0, 0, 0, $this->month, 1, $this->year)));
+        $lastDay = $lastWorkingDay->format('l');
 
-        $this->salaryDate = date('Y-m-d', strtotime("last weekday $monthName $this->year"));
+        if($lastDay == "Saturday") {
+            $lastWorkingDay->modify('-1 day');
+        } elseif($lastDay == "Sunday") {
+            $lastWorkingDay->modify('-2 day');
+        }
+        $this->salaryDate = $lastWorkingDay->format('Y-m-d');
     }
 
     private function setBonusDay()
