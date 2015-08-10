@@ -39,33 +39,29 @@ class PaymentInfo implements PaymentInfoInterface
         } elseif($lastDay == "Sunday") {
             $lastWorkingDay->modify('-2 day');
         }
+
         $this->salaryDate = $lastWorkingDay->format('Y-m-d');
     }
 
     private function setBonusDay()
     {
-        $bonusDayTime = strtotime("$this->year-$this->month-15");
+        $date = (new \DateTime())->setDate($this->year, $this->month, 15);
 
-        if ($this->isWeekend($bonusDayTime)) {
-
-            $this->bonusDate = (new \DateTime(date('Y-m-d', $bonusDayTime)))
-                ->modify('next wednesday')
-                ->format('Y-m-d');
-        } else {
-            $this->bonusDate = date('Y-m-d', $bonusDayTime);
+        if ($this->isWeekend($date->format('l'))) {
+            $date->modify('next wednesday');
         }
+
+        $this->bonusDate = $date->format('Y-m-d');
     }
 
     private function setMonthName()
     {
-        $this->monthName = date('F', strtotime("$this->year-$this->month-15"));
+        $this->monthName = (new \DateTime())->setDate($this->year, $this->month, 15)->format('F');
     }
 
-    private function isWeekend($dayTime)
+    private function isWeekend($day)
     {
-        $dayNumber = date('w', $dayTime);
-
-        return ($dayNumber == 0 || $dayNumber == 6);
+        return ($day == "Saturday" || $day == "Sunday");
     }
 
 
